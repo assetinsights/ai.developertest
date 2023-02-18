@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import EmployeeList from "../EmployeeList/EmployeeList";
+//import EmployeeList from "../EmployeeList/EmployeeList";
+//import Card from "../Card/Card";
+import List from "../List/List";
 import "./App.css";
 
 /** creating an example database of ids & values to display in front end for Admin view */
@@ -18,23 +20,26 @@ function App() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    const fetchEmployees = async () => {
-      const response = await fetch("http://localhost:3000/employee", {
+    async function fetchEmployees() {
+      let response = await fetch("http://localhost:3000/employee", {
         mode: "cors",
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
-      const data = await response.json();
-      setEmployees(data);
-    };
+      let data = await response.json();
 
+      setEmployees([...data.payload]);
+      console.log("The data loaded: ", data);
+      console.log("The employees state: ", employees);
+    }
     fetchEmployees();
   }, []);
 
   return (
     <div>
-      <h1>Employee List</h1>
-      <EmployeeList employees={employees} />
+      <h1>User.Management</h1>
+      <List employees={employees}></List>
+      {/* <EmployeeList employees={employees} /> */}
     </div>
   );
 }
