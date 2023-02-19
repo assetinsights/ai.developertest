@@ -2,3 +2,16 @@
   border: 1px solid black;
   border-collapse: collapse;
 }
+
+.employeeCard {
+  border: 1px solid black;
+  width: 50%;
+}
+
+.employeeCard.h2 {
+  font: bold;
+}
+
+.employeeCard.p {
+  font: bold;
+}

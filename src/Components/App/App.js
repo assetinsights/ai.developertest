@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-//import EmployeeList from "../EmployeeList/EmployeeList";
-//import Card from "../Card/Card";
 import List from "../List/List";
+import AddEmployee from "../AddEmployee/AddEmployee";
 import "./App.css";
 
 /** creating an example database of ids & values to display in front end for Admin view */
@@ -18,10 +17,15 @@ import "./App.css";
 
 function App() {
   const [employees, setEmployees] = useState([]);
+  const [newEmployee, setNewEmployee] = useState({});
 
+  /**useEffect function GET 
+   * Function to collect all current database entries
+   * Populates list of Employees for user to review
+  } */
   useEffect(() => {
     async function fetchEmployees() {
-      let response = await fetch("http://localhost:3000/employee", {
+      let response = await fetch("http://localhost:3001/employee", {
         mode: "cors",
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -35,11 +39,49 @@ function App() {
     fetchEmployees();
   }, []);
 
+  /**Function useEffect- POST
+   * Function to allow user to send a newly created employee object
+   * Sends employee object to the database
+   * @param {*} employeeObject
+   */
+  useEffect(() => {
+    async function addNewEmployee(newEmployee) {
+      console.log("useEffect employeeObject from state: ", newEmployee);
+      const employee = await fetch("http://localhost:3001/employee", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newEmployee),
+      });
+
+      if (employee.success) {
+        console.log("POST was success");
+      }
+      setEmployees([...employees, newEmployee]);
+    }
+
+    addNewEmployee(newEmployee);
+    console.log("addNewEmployee useEffect has worked");
+  }, [newEmployee]);
+
+  /** handleSubmit takes in the employeeObject created by the users in AddEmployee and updates the state variable newEmployee
+   *
+   * @param {*} employeeObject
+   */
+  function handleSubmit(employeeObject) {
+    console.log("You clicked postObject");
+    setNewEmployee(employeeObject);
+    console.log("handleSubmit postObject: ", employeeObject);
+  }
+
   return (
     <div>
       <h1>User.Management</h1>
+      <AddEmployee handleSubmit={handleSubmit} />
+      <br />
       <List employees={employees}></List>
-      {/* <EmployeeList employees={employees} /> */}
     </div>
   );
 }
