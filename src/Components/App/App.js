@@ -64,22 +64,22 @@ function App() {
 
     addNewEmployee(newEmployee);
     console.log("addNewEmployee useEffect has worked");
-  }, [newEmployee]);
+  }, []);
 
   /** handleSubmit takes in the employeeObject created by the users in AddEmployee and updates the state variable newEmployee
    *
    * @param {*} employeeObject
    */
-  function handleSubmit(employeeObject) {
-    console.log("You clicked postObject");
-    setNewEmployee(employeeObject);
-    console.log("handleSubmit postObject: ", employeeObject);
-  }
+  // function handleSubmit(employeeObject) {
+  //   console.log("You clicked postObject");
+  //   setNewEmployee(employeeObject);
+  //   console.log("handleSubmit postObject: ", employeeObject);
+  // }
 
   return (
     <div>
       <h1>User.Management</h1>
-      <AddEmployee handleSubmit={handleSubmit} />
+      <AddEmployee />
       <br />
       <List employees={employees}></List>
     </div>
