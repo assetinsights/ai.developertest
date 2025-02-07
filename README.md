@@ -14,6 +14,7 @@ The task gives you free rain on how the front end of the application will look, 
 
 **Share your work:**
 - Set up a repository on Github or any other open access git repository to host your code so we can pull down the code from there.
+- Host your application anyway you like so we can use the application in the cloud.
 - If you are using a database please ensure a copy of it in the repo so we can use and run your application
 - Please share any development/set up notes in a README.md
 
